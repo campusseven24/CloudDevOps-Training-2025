@@ -9,9 +9,9 @@ flowchart TD
     Start([교육시작<br/>2025.05.27]) --> Phase1{1단계: 기반 기술 학습<br/>}
 
     Phase1 --> Cloud컴퓨팅[Cloud 컴퓨팅<br/><br/>개념]
+    Phase1 --> Git[Git<br/><br/>형상관리, 보안관리]
     Phase1 --> Docker[Docker<br/><br/>컨테이너, 오케스트레이션]
     Phase1 --> Linux[Linux 기초<br/><br/>OS 가상화, 명령어, SSH]
-    Phase1 --> Git[Git<br/><br/>형상관리, 보안관리]
     Phase1 --> DevOps[DevOps<br/><br/>CI/CD, Jenkins, Terraform]
     Phase1 --> MSA[MSA 개발방법<br/><br/>아키텍처, DDD, 스크럼]
     
