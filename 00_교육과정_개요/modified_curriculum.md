@@ -2,22 +2,41 @@
 
 ## 📊 교육과정 플로우차트
 
-아래 다이어그램은 전체 교육과정의 흐름을 보여줍니다. 각 단계는 순차적으로 진행되며, 7-8단계는 병행 학습으로 진행됩니다.
+아래 다이어그램은 전체 교육과정의 흐름을 보여줍니다. 각 단계는 순차적으로 진행되며, 7-8단계는 3단계 이후부터 병행 학습으로 진행됩니다.
 
 ```mermaid
 flowchart TD
     Start([교육시작<br/>2025.05.27]) --> Phase1{1단계: 기반 기술 학습<br/>}
 
     Phase1 --> Cloud컴퓨팅[Cloud 컴퓨팅<br/><br/>개념]
+    Phase1 --> Git[Git<br/><br/>형상관리, 보안관리]
     Phase1 --> Docker[Docker<br/><br/>컨테이너, 오케스트레이션]
     Phase1 --> Linux[Linux 기초<br/><br/>OS 가상화, 명령어, SSH]
-    Phase1 --> Git[Git<br/><br/>형상관리, 보안관리]
     Phase1 --> DevOps[DevOps<br/><br/>CI/CD, Jenkins, Terraform]
     Phase1 --> MSA[MSA 개발방법<br/><br/>아키텍처, DDD, 스크럼]
     
-    Docker --> Phase2{2단계: 객체지향 프로그래밍<br/>Java 기반}
+    Docker --> Phase2{2단계: 웹 기초 기술<br/>}
     
-    Phase2 --> Java1[Java 기본문법<br/><br/>자료형, 제어문, 배열, 메소드]
+    Phase2 --> HTML[HTML5<br/><br/>시맨틱 태그, 폼 요소]
+    Phase2 --> CSS[CSS3<br/><br/>스타일링, 레이아웃]
+    
+    HTML --> HTMLSub1[기본 구조<br/>태그, 속성<br/>문서 구조화]
+    HTML --> HTMLSub2[폼과 입력<br/>form, input<br/>validation]
+    
+    CSS --> CSSSub1[선택자와 속성<br/>박스 모델<br/>포지셔닝]
+    CSS --> CSSSub2[Flexbox<br/>Grid Layout<br/>]
+    
+    HTMLSub2 --> JS[Javascript 기초<br/><br/>DOM 조작, 이벤트]
+    CSSSub2 --> JS
+    
+    JS --> JSSub1[기본 문법<br/>변수, 함수<br/>객체, 배열]
+    JS --> JSSub2[DOM 조작<br/>요소 선택<br/>스타일 변경]
+    JS --> JSSub3[이벤트 처리<br/>클릭, 키보드<br/>폼 이벤트]
+    JS --> JSSub4[비동기 처리<br/>Promise, async/await<br/>fetch API]
+    
+    JSSub4 --> Phase3{3단계: 객체지향 프로그래밍<br/>Java 기반}
+    
+    Phase3 --> Java1[Java 기본문법<br/><br/>자료형, 제어문, 배열, 메소드]
     
     Java1 --> JavaSub1[변수와 자료형<br/>기본형, 참조형<br/>형변환, 배열]
     Java1 --> JavaSub2[제어문<br/>조건문 if, switch<br/>반복문 for, while]
@@ -40,26 +59,7 @@ flowchart TD
     Java3 --> IO1[입출력 스트림<br/>InputStream/OutputStream<br/>BufferedReader/Writer]
     Java3 --> IO2[파일 처리<br/>File 클래스<br/>직렬화/역직렬화]
     
-    IO2 --> Phase3{3단계: 웹 기초 기술<br/>}
-    
-    Phase3 --> HTML[HTML5<br/><br/>시맨틱 태그, 폼 요소]
-    Phase3 --> CSS[CSS3<br/><br/>스타일링, 레이아웃]
-    
-    HTML --> HTMLSub1[기본 구조<br/>태그, 속성<br/>문서 구조화]
-    HTML --> HTMLSub2[폼과 입력<br/>form, input<br/>validation]
-    
-    CSS --> CSSSub1[선택자와 속성<br/>박스 모델<br/>포지셔닝]
-    CSS --> CSSSub2[Flexbox<br/>Grid Layout<br/>]
-    
-    HTMLSub2 --> JS[Javascript 기초<br/><br/>DOM 조작, 이벤트]
-    CSSSub2 --> JS
-    
-    JS --> JSSub1[기본 문법<br/>변수, 함수<br/>객체, 배열]
-    JS --> JSSub2[DOM 조작<br/>요소 선택<br/>스타일 변경]
-    JS --> JSSub3[이벤트 처리<br/>클릭, 키보드<br/>폼 이벤트]
-    JS --> JSSub4[비동기 처리<br/>Promise, async/await<br/>fetch API]
-    
-    JSSub4 --> Phase4{4단계: 데이터베이스<br/><br/>심화 학습}
+    IO2 --> Phase4{4단계: 데이터베이스<br/><br/>심화 학습}
     
     Phase4 --> DB1[DB 구현 & 모델링<br/><br/>DBMS 기초, 설계]
     Phase4 --> DB2[SQL 활용<br/><br/>기본/고급 SQL]
@@ -153,12 +153,13 @@ flowchart TD
     
     %% 7단계 클라우드 플랫폼 병행
     DevOps --> CloudPhase7[7단계: 도커, 클라우드 플랫폼<br/><br/>병행 진행]
-    JS --> CloudPhase7
+    Java3 --> CloudPhase7
     CloudPhase7 --> AWSBasic[AWS 기초<br/><br/>EC2, S3]
     CloudPhase7 --> AWSAdvanced[AWS 고급<br/><br/>RDS]
     
     %% 8단계 실무 프로젝트 병행
-    SQLPractice --> ProjectPhase8[8단계: 실무 프로젝트<br/><br/>병행 진행]
+    Java3 --> ProjectPhase8[8단계: 실무 프로젝트<br/><br/>병행 진행]
+    SQLPractice --> ProjectPhase8
     BackendProject --> ProjectPhase8
     ReactSub6 --> ProjectPhase8
     AWSAdvanced --> ProjectPhase8
@@ -185,6 +186,21 @@ flowchart TD
     
     subgraph Phase2Detail [" "]
         direction TB
+        HTML
+        HTMLSub1
+        HTMLSub2
+        CSS
+        CSSSub1
+        CSSSub2
+        JS
+        JSSub1
+        JSSub2
+        JSSub3
+        JSSub4
+    end
+    
+    subgraph Phase3Detail [" "]
+        direction TB
         Java1
         JavaSub1
         JavaSub2
@@ -197,21 +213,6 @@ flowchart TD
         Java3
         IO1
         IO2
-    end
-    
-    subgraph Phase3Detail [" "]
-        direction TB
-        HTML
-        HTMLSub1
-        HTMLSub2
-        CSS
-        CSSSub1
-        CSSSub2
-        JS
-        JSSub1
-        JSSub2
-        JSSub3
-        JSSub4
     end
     
     subgraph Phase4Detail [" "]
@@ -290,8 +291,8 @@ flowchart TD
     end
     
     classDef phase1 fill:#e8f5e8
-    classDef phase2 fill:#fff2e8
-    classDef phase3 fill:#e8f0ff
+    classDef phase2 fill:#e8f0ff
+    classDef phase3 fill:#fff2e8
     classDef phase4 fill:#f0e8ff
     classDef phase5 fill:#ffe8f0
     classDef phase6 fill:#ffeaa7
@@ -300,8 +301,8 @@ flowchart TD
     classDef milestone fill:#ff6b6b,color:#fff
     
     class Linux,MSA,DevOps,Docker,Git,Cloud컴퓨팅 phase1
-    class Java1,Java2,Java3,JavaSub1,JavaSub2,JavaSub3,OOP1,OOP2,OOP3,OOP4,IO1,IO2 phase2
-    class HTML,CSS,HTMLSub1,HTMLSub2,CSSSub1,CSSSub2,JS,JSSub1,JSSub2,JSSub3,JSSub4 phase3
+    class HTML,CSS,HTMLSub1,HTMLSub2,CSSSub1,CSSSub2,JS,JSSub1,JSSub2,JSSub3,JSSub4 phase2
+    class Java1,Java2,Java3,JavaSub1,JavaSub2,JavaSub3,OOP1,OOP2,OOP3,OOP4,IO1,IO2 phase3
     class DB1,DB2,DBSub1,DBSub2,DBSub3,DBSub4,DBMiddle,SQLSub1,SQLSub2,SQLPractice phase4
     class JDBC,WebDev,Framework,JDBCSub1,JDBCSub2,JDBCSub3,JDBCSub4,JSPSub1,JSPSub2,ServletSub1,MVCPattern,WebProject,MyBatisPart,SpringPart,MyBSub1,MyBSub2,MyBSub3,MyBSub4,SpringSub1,SpringSub2,SpringSub3,SpringSub4,SpringSub5,SpringSub6,BackendProject phase5
     class Node,ReactBasic,ReactAdvanced,NodeSub1,NodeSub2,ReactSub1,ReactSub2,ReactSub3,ReactSub4,ReactSub5,ReactSub6 phase6
@@ -309,3 +310,52 @@ flowchart TD
     class ProjectPhase8,Proj1,Proj2,Proj3,Proj4,Proj5 phase8
     class Start,Complete milestone
 ```
+
+## 📋 단계별 학습 내용
+
+### 1단계: 기반 기술 학습
+- **Cloud 컴퓨팅**: 기본 개념 이해
+- **Git**: 형상관리 및 보안관리
+- **Docker**: 컨테이너 및 오케스트레이션
+- **Linux 기초**: OS 가상화, 명령어, SSH
+- **DevOps**: CI/CD, Jenkins, Terraform
+- **MSA 개발방법**: 아키텍처, DDD, 스크럼
+
+### 2단계: 웹 기초 기술
+- **HTML5**: 시맨틱 태그, 폼 요소, 문서 구조화
+- **CSS3**: 스타일링, 레이아웃, Flexbox, Grid Layout
+- **JavaScript**: DOM 조작, 이벤트 처리, 비동기 처리
+
+### 3단계: 객체지향 프로그래밍 (Java 기반)
+- **Java 기본문법**: 자료형, 제어문, 배열, 메소드
+- **객체지향 개념**: 캡슐화, 상속, 다형성
+- **고급 개념**: 제네릭, 컬렉션, 예외처리, 람다식
+- **입출력 프로그래밍**: 스트림, 파일 처리, 직렬화
+
+### 4단계: 데이터베이스
+- **DB 구현 & 모델링**: DBMS 기초, ERD 설계, 정규화
+- **SQL 활용**: 기본/고급 SQL, JOIN, SubQuery
+
+### 5단계: 백엔드 개발
+- **JDBC**: Java DB 연동, Connection Pool, 트랜잭션 관리
+- **웹 개발 기초**: JSP, Servlet, MVC 패턴
+- **프레임워크**: MyBatis, Spring Boot, Spring Security
+
+### 6단계: 모던 프론트엔드 (React 기반)
+- **Node.js 환경**: npm, yarn, 패키지 관리
+- **React 기초**: 컴포넌트, JSX, props, state
+- **React 심화**: Hooks, 상태관리, 라우팅
+
+### 7단계: 클라우드 플랫폼 (병행 진행)
+- **AWS 기초**: EC2, S3
+- **AWS 고급**: RDS
+- *3단계 완료 후부터 병행 학습*
+
+### 8단계: 실무 프로젝트 (병행 진행)
+- 5개의 실무 프로젝트 진행
+- *3단계 완료 후부터 병행 학습*
+
+## 📅 교육 일정
+- **교육 시작**: 2025년 5월 27일
+- **교육 완료**: 2025년 11월 20일
+- **총 교육 기간**: 약 6개월
