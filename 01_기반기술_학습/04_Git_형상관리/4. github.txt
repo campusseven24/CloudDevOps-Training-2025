@@ -1,0 +1,36 @@
+1. 원격 저장소 
+    1) 지역 저장소(local repository)
+        - 만약 실수로 삭제되면 곤란해짐 
+    2) 원격 저장소(remote repository)
+        - DVCS
+        - 백업
+        - 협업 
+
+2. 깃허브      
+    1) 회원가입
+    2) 원격 저장소 만들기 
+        - https://github.com/campusseven24/test1.git
+        - https://github.com/아이디/저장소명.git  
+    3) 원격 저장소 삭제하기 
+
+3. 지역 저장소를 원격 저장소에 연결하기 
+    1) 원격 저장소에 등록하기 
+        - git remote add origin 복사한 주소 
+    2) 원격 저장소에 등록 확인                 
+        - git remote -v 
+    3) 원격 저장소에 등록 삭제하기
+        - git remote remove origin     
+
+4. 지역 저장소와 원격 저장소 동기화하기 
+    1) 원격 저장소에 커밋 처음으로 올리기  
+        - git push -u origin main   
+    2) 원격 저장소에 파일 올리기 
+        - git push  
+
+5. 원격 저장소에서 직접 커밋하기 
+
+6. 원격 저장소에서 커밋 내려받기 
+    - git pull(풀하기)
+        - 원격 저장소와 지역 저장소의 상태가 같아지도록
+          원격 저장소의 커밋을 지역 저장소로 가져옴 
+        - 예) git pull origin main       
