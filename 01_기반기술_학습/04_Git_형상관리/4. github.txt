@@ -30,7 +30,13 @@
 5. 원격 저장소에서 직접 커밋하기 
 
 6. 원격 저장소에서 커밋 내려받기 
-    - git pull(풀하기)
+    - git pull (풀하기)
         - 원격 저장소와 지역 저장소의 상태가 같아지도록
           원격 저장소의 커밋을 지역 저장소로 가져옴 
-        - 예) git pull origin main       
+        - 예) git pull origin main  
+    - git clone (클론, 클로닝) 
+        - 원격 저장소 복제하기 
+        - 원격 저장소에 담긴 내용 전체를 지역 저장소로 똑같이 가져오기
+        - 형식
+            - git clone 원격 저장소 주소  
+            - 예) git clone https://github.com/campusseven24/test1.git 
