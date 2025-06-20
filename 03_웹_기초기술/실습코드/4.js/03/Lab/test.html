@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="numberInput" >
+    <button onclick="splitNumber()">실행</button>
+    <div id="result"></div>
+    <script>
+        function splitNumber() {
+            const input = document.getElementById("numberInput").value;
+            const splitResult = input.split('.');
+
+            document.getElementById("result").innerHTML = `
+                <h3>결과 : </h3>
+                <p>입력값 : "${input}" </p>
+                <p>결과값 : [${splitResult.map(item => `"${item}"`).join(', ')}]</p>
+                <p>정수 부분 : ${splitResult[0]}</p>
+                <p>소수 부분 : ${splitResult[1]}</p>
+        
+            `;
+        }
+
+        splitNumber();
+    </script>
+</body>
+</html>
