@@ -99,6 +99,7 @@
         <div class="section">
             <h2>🔧평가 문제</h2>
             <button onclick="displayAllEmployees()">1. 전체 직원 목록 출력</button>
+            <button onclick="displayEmployeesByDepartment()">2. 부서별 직원 출력</button>
 
             <div id="output" class="output"></div>
         </div>
@@ -187,7 +188,7 @@
             console.log("직원 카드가 성공적으로 표시되었습니다.");
         };
 
-        // 전체 직원 목록을 화면, 콘솔에 출력
+        // 1. 전체 직원 목록을 화면, 콘솔에 출력
         function displayAllEmployees() {
             const output = document.getElementById('output');
             let result = "==== 전체 직원 목록 ====\n\n";
@@ -196,6 +197,37 @@
             employees.forEach((employee) => {
                 result += `${employee.name} - ${employee.department} ${employee.position}\n`;
                 console.log(`${employee.name} - ${employee.department} ${employee.position}`)
+            });
+
+            output.textContent = result;
+        }
+
+        //2. 부서별로 직원을 그룹화하여 출력
+        function displayEmployeesByDepartment() {
+            const output = document.getElementById("output");
+            let result = "==== 부서별 직원 현황 ====\n\n";
+
+            //부서별 그룹화를 위한 객체
+            const departmentGroups = {};
+
+            //forEach를 사용하여 부서별로 그룹화 
+            employees.forEach((employee) => {
+                //부서가 없으면 빈 배열로 초기화 
+                if(!departmentGroups[employee.department]) {
+                    departmentGroups[employee.department] = [];
+                }                   
+                //해당 부서에 직원 추가
+                departmentGroups[employee.department].push(employee);
+            });
+
+            // 각 부서별로 직원 목록 출력 
+            Object.keys(departmentGroups).forEach((department) => {
+                result += `📁 ${department}: \n`;
+                // 해당 부서의 직원들을 순회하며 출력
+                departmentGroups[department].forEach((employee, index) => {
+                    result += `  ${index + 1}. ${employee.name} (${employee.position})\n`;
+                });
+                result += "\n";
             });
 
             output.textContent = result;
