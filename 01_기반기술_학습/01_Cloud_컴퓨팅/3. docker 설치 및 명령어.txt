@@ -22,6 +22,16 @@
        docker rmi -f <이미지ID> 
         - 특정 이미지 강제 삭제 
 
+5. Docker로 MySQL 실행시키기 
+    1) 명령어 
+        - docker run -e MYSQL_ROOT_PASSWORD=password123 -d -p3306:3306 mysql
+
+    2) 컨테이너가 잘 실행되고 있는지 체크 
+        - docker ps 
+
+    3) 컨테이너 실행시킬때 에러 없이 잘 실행됐는지 로그 체크 
+        - docker logs [컨테이너 ID 또는 컨테이너명]        
+
 
 
 
