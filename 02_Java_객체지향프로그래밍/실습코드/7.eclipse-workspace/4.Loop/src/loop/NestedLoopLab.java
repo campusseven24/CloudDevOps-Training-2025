@@ -36,6 +36,67 @@ public class NestedLoopLab {
 		// lab2. 좌석 예약 현황 
 		seatReservation();
 		
+		System.out.println("\n" + "=".repeat(50) + "\n");
+		
+		// lab3. 성적 처리 시스템
+		gradeSystem();
+		
+	}
+
+	private static void gradeSystem() {
+		System.out.println("Lab3. 성적 처리 시스템");
+		System.out.println("3개 과목, 5명 학생의 성적을 처리합니다.");
+		System.out.println();
+		
+		// 과목명 배열
+		String[] subjects = { "수학", "영어", "과학" };
+		
+		// 성적 데이터 
+		int[][] scores = {
+				{85,    90,    78},	
+				{92,    88,    95}, 
+				{78,    85,    82},
+				{95,    92,    88}, 
+				{88,    79,    91}  
+		};
+		
+		// 성적표 헤더 출력
+		System.out.print("학생\t");
+		for(int subject = 0; subject < subjects.length; subject++) {
+			System.out.print(subjects[subject] + "\t");
+		}
+		System.out.println("평균");	// 평균 점수 헤더 
+		
+		// 각 학생의 성적 및 평균 출력
+		for(int student = 0; student < scores.length; student++) {
+			System.out.print((student + 1) + "번\t");  //학생 번호 출력
+			
+			int sum = 0;	// 해당 학생의 점수 합계 
+			for(int subject=0; subject < subjects.length; subject++) {
+				System.out.print(scores[student][subject] + "\t"); //각 과목 점수
+				sum += scores[student][subject];	// 점수 합계
+			}
+			
+			// 평균 계산 및 출력 (소수점 1째자리까지)
+			double average = (double)sum / subjects.length;  //평균 계산
+			System.out.printf("%.1f\n", average);  //소수점 1자리까지 출력
+		}
+		System.out.println();
+		
+		// 과목별 평균 계산
+		System.out.println("과목별 평균 : ");
+		for(int subject = 0; subject < subjects.length; subject++) {
+			int subjectSum = 0;		// 해당 과목의 점수 합계
+			
+			for(int student = 0; student < scores.length; student++) {
+				subjectSum += scores[student][subject]; //점수 합계
+			}
+			
+			// 과목별 평균 계산 및 출력
+			double subjectAverage = (double)subjectSum / scores.length;
+			System.out.printf("%s: %.1f점\n", subjects[subject], subjectAverage);
+		}
+		
 	}
 
 	private static void seatReservation() {
