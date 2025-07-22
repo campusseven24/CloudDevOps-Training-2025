@@ -46,6 +46,7 @@ class FullTimeEmpolyee extends Employee {
 		super.printEmpolyeeInfo();
 		System.out.println("보너스 : " +bonus+ "만원");
 		System.out.println("총 급여 : " +calculateSalary()+ "만원");
+		System.out.println("고용형태: 정규직");
 	}
 	
 }
@@ -72,6 +73,7 @@ class PartTimeEmployee extends Employee {
 		System.out.println("시간당 급여 : " +hourlyRate+ "만원" );
 		System.out.println("근무 시간 : " +workHours+ "시간");
 		System.out.println("총 급여 : " +calculateSalary()+ "만원");
+		System.out.println("고용형태: 파트타임");
 	}
 			
 }
@@ -80,9 +82,31 @@ class PartTimeEmployee extends Employee {
 // 프리랜서 클래스
 // 속성 : 프로젝트 개수, 프로젝트당 수수료 
 // 급여 계산 : 프로젝트 개수 * 프로젝트당 수수료 
-//class FreelancerEmployee extends Employee {
-//	
-//}
+class FreelancerEmployee extends Employee {
+	private int projectCount;
+	private int projectFee;
+	
+	public FreelancerEmployee(String name, int projectCount, int projectFee) {
+		super(name, 0);		//기본급은 0으로 변경
+		this.projectCount = projectCount;
+		this.projectFee = projectFee;
+	}
+	
+	@Override
+	public int calculateSalary() {
+		return projectFee * projectCount;
+	}
+	
+	@Override
+	public void printEmpolyeeInfo() {
+		System.out.println("직원명: " + name);
+		System.out.println("프로젝트당 수수료:" +projectFee+ "만원");
+		System.out.println("완료 프로젝트: " +projectCount+ "개");
+		System.out.println("총 급여: " + calculateSalary());
+		System.out.println("고용형태: 프리랜서");
+	}
+	
+}
 
 
 
@@ -98,6 +122,25 @@ class PartTimeEmployee extends Employee {
 //               ------------------
 //           contractMonths >= 12 ? contractBonus : 0  
 
+class PayrollSystem {
+	//급여 계산 메서드 (다형성 활용)
+	public static void calculatePayroll(Employee employee) {
+		System.out.println("===급여 계산서===");
+		employee.printEmpolyeeInfo();
+		System.out.println("=============");
+		System.out.println();
+	}
+	
+	// 여러 직원들의 총 급여 계산 
+	public static int calculateTotalSalary(Employee[] employees) {
+		int total = 0;
+		for(Employee emp : employees) {
+			total += emp.calculateSalary();		//각 직원의 급여 계산 방식이 다름
+		}
+		return total;
+	}
+}
+
 public class PolymorphismLab {
 
 	public static void main(String[] args) {
@@ -107,16 +150,26 @@ public class PolymorphismLab {
 		//1. 다양한 직원 객체 생성 (다형성 활용)
 		Employee emp1 = new FullTimeEmpolyee("이순신", 400, 100); //정규직
 		Employee emp2 = new PartTimeEmployee("이아르바이트", 10, 80); //파트타임
-		//Employee emp3 = new FreelancerEmployee("박프리", 200, 3);	//프리랜서
+		Employee emp3 = new FreelancerEmployee("박프리", 200, 3);	//프리랜서
 		Employee emp4 = new FullTimeEmpolyee("최매니저", 600, 200); //정규직
 		
 		//2. 배열에 저장 (다형성 활용)
-		Employee[] employees = {};
+		Employee[] employees = {emp1, emp2, emp3, emp4};
 		
 		//3. 개별 급여 계산 (다형성 활용)
+		System.out.println("📊 개별 급여 계산 테스트");
+		System.out.println("==================");
+		
+		for(Employee emp : employees) {
+			PayrollSystem.calculatePayroll(emp);
+		}
 		
 		//4. 전체 급여 통계 
-		
+		System.out.println("📈 급여 통계");
+		System.out.println("==========");
+		System.out.println("총 직원 수: " + employees.length +"명");
+		System.out.println("총 급여 지출: " + 
+					PayrollSystem.calculateTotalSalary(employees) +"만원");
 	}
 }
 
