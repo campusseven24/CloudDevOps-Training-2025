@@ -31,6 +31,7 @@ public class StudentManagementLab {
 				case 2: viewAllStudents(); break;
 				case 3: searchStudent(); break;
 				case 4: updateStudent(); break;
+				case 5: removeStudent(); break;
 				case 0: System.out.println("프로그램을 종료합니다."); break;
 				default: System.out.println("잘못된 선택입니다.");
 			}
@@ -38,6 +39,43 @@ public class StudentManagementLab {
 		} while(choice != 0);
 		
 		scanner.close();
+	}
+
+	/*
+	 * remove()
+	 */
+	private static void removeStudent() {
+		System.out.print("😊 삭제할 학생 이름: ");
+		String targetName = scanner.nextLine();
+		
+		Iterator<Student> itr = students.iterator();
+		boolean removed = false;	// 삭제 성공 여부 저장하는 변수(flag)
+		while(itr.hasNext()) {
+			Student student = itr.next();
+			if(student.getName().equals(targetName)) {
+				//삭제 확인 과정
+				System.out.printf("⚠️ 정말로 '%s' 학생을 삭제하시겠습니까? (y/n): ", targetName);
+				String confirm = scanner.nextLine();
+				
+				if(confirm.toLowerCase().equals("y") || confirm.equals("예")) {
+					itr.remove();
+					System.out.println("✅ '"+targetName+"' 학생이 삭제되었습니다. ");
+					removed = true;
+				} else {
+					System.out.println("❌ 삭제가 취소되었습니다.");
+					removed = true;		// 찾았으므로 true로 설정
+				}					
+				break;		// 찾았으므로 loof 종료
+			}
+		}
+		
+		// 학생을 찾지 못한 경우
+		if(!removed) {
+			System.out.println("❌ 해당 학생을 찾을 수 없습니다.");
+		} else {
+			System.out.println("🏢 현재 총 학생 수: " + students.size());
+		}
+		
 	}
 
 	/*
