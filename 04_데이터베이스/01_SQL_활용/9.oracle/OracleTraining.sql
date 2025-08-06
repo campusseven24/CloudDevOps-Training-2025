@@ -1,6 +1,18 @@
-desc emp;
+-- 1. desc : 테이블 컬럼명, 데이터타입, NULL 허용여부 등 구조 확인
+desc emp;           -- 사원 정보 테이블
+select * from emp;  -- 모든 컬럼(*), 모든 행 조회 
 
-select * from emp;
+desc dept;          -- 부서 정보 테이블 
+SELECT * FROM dept; -- SQL은 대소문자 구분 안함 (관례: 키워드는 대문자) 
+
+DESC salgrade;      -- 급여 등급 테이블 
+select * from salgrade;     -- 급여 등급별 최소/최대 급여 구간 정보 
+
+-- 2. 기본 SELECT 문법 
+-- 특정 컬럼만 선택 조회
+
+
+
 select deptno from emp;
 select distinct deptno from emp;
 
