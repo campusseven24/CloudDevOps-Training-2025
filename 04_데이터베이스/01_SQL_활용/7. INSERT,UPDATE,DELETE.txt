@@ -1,0 +1,10 @@
+1. DML - 등록 
+    1) INSERT 문법
+        - INSERT INTO table_name (column1, column2, column3, ...)
+          VALUES (vlaue1, vlaue2, vlaue3,...)
+
+2. DML - 수정 
+    1) UPDATE 문법 
+        - UPDATE table_name
+          SET column1 = vlaue1, column2 = vlaue2, ...
+          WHERE condition;
