@@ -1,0 +1,58 @@
+1. DDL의 특징 
+    1) 데이터베이스 객체의 구조를 정의/변경/삭제
+    2) 자동 COMMIT (트랜잭션 즉시 종료)
+    3) ROLLBACK 불가능 - 신중히 실행 
+    4) 주요 명령어 
+        - CREATE, ALTER, DROP, TRUNCATE, RENAME
+    5) 테이블, 인덱스, 뷰 등 객체 관리 
+
+2. DDL vs DML 
+    DDL (Data Definition Language)      DML (Data Manipulation Language)            
+    -------------------------------------------------------------
+    구조정의                             데이터 조작 
+    자동 COMMIT, ROLLBACK 불가           수동 COMMIT, ROLLBACK 가능 
+
+3. CREATE TABLE - 테이블 생성 
+
+4. ALTER TABLE - 테이블 구조 변경
+    1) 컬럼 추가 - ADD 
+    2) 컬럼 이름 변경 - RENAME COLUMN 
+    3) 컬럼 속성 변경 - MODIFY 
+    4) 컬럼 삭제 - DROP COLUMN
+
+5. RENAME, TRUNCATE, DROP - 테이블 관리 
+
+6. 제약 조건 (CONSTRAINT)
+    1) 테이블에 데이터를 저장할 때, 특정 규칙을 지키도록 강제하는 
+       장치임.
+    2) 데이터의 무결성, 즉 데이터에 결점이 없는 상태를 유지하는 것이 
+       제약 조건의 목표임.
+    3) 종류 
+        - NOT NULL 
+            - 필수 입력 항목 지정 
+            - NULL 값(값이 없음)을 허용하지 않음
+            - 데이터를 INSERT 할 때 이 열의 값은 반드시 입력되어야 함.
+        - UNIQUE
+            - 중복 불가 항목 지정 
+            - 이 제약 조건이 걸린 열의 값은 테이블 내에서 항상 고유해야 함.
+            - 예) 아이디, 이메일 주소, 사업자 등록번호  
+        - PRIMARY KEY (PK)
+            - 테이블의 대표 식별자 
+            - 테이블의 모든 행을 유일하게 식별하는 열.
+            - NOT NULL과 UNIQUE의 특징을 모두 가짐.
+            - 모든 테이블에는 반드시 PRIMARY KEY가 있어야 함.
+            - AUTO_INCREMENT 
+                - 새로운 데이터가 추가될 때마다 1씩 자동으로 
+                  증가하는 번호를 할당해 줌.                                                             
+        - FOREIGN KEY (FK)
+            - 테이블 간의 관계 설정 
+            - 한 테이블을 다른 테이블과 연결하는 관계의 고리임
+            - 참조하는 열의 값은 반드시 테이블의 PRIMARY KEY 값 중 
+              하나여야 함 (참조 무결성)
+        - DEFAULT 
+            - 기본값 설정 
+            - 데이터를 INSERT 할때 특정 열의 값을 명시하지 않으면,
+              자동으로 설정된 기본값이 입력됨.
+        - CHECK 
+            - 컬럼에 입력되는 값이 특정 조건을 만족하는지 검사 
+            - 조건에 맞지 않는 데이터의 입력을 막음                             

@@ -8,3 +8,8 @@
         - UPDATE table_name
           SET column1 = vlaue1, column2 = vlaue2, ...
           WHERE condition;
+
+3. DML - 삭제 
+    1) DELETE 문법
+        - DELETE FROM table_name
+          WHERE condition;          
