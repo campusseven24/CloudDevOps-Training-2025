@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const myVehicle = {
+            brand: 'KGM',
+            model: 'MUSSO',
+            color: 'yellow'
+        }
+
+        const updateMyVehicle = {
+            type: 'truck',
+            year: 2025,
+            color: 'red'
+        }
+
+        // 스프레드 연산자를 사용하여 두 객체를 결합 
+        const myUpdateMyVehicle = {...myVehicle, ...updateMyVehicle}
+
+        // 동일한 속성명(color)이 있을 경우, 뒤에 오는 객체이 값(red)으로 덮어씀 
+        console.log(myUpdateMyVehicle);
+    </script>
+</body>
+</html>

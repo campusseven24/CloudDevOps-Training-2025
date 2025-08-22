@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //차량 정보를 담고 있는 객체
+        const vehicleOne = {
+            brand: 'KGM',
+            model: 'MUSSO',
+            type: 'truck',
+            year: 2025,
+            color: 'yellow'
+        };
+
+        //객체를 함수에 전달
+        /*
+         함수 매개변수에서 바로 객체를 구조 분해함
+         중괄호 {} 안에 필요한 속성을 나열함 
+         => 함수가 호출될 때 전달은 객체에서 각 속성을 추출하여
+           각각 동일한 이름의 변수로 사용할 수 있음.
+        */
+        myVehicle(vehicleOne);
+
+        function myVehicle({type, color, brand, model}) {
+            console.log('type:', type);
+            console.log('color:', color);
+            console.log('brand:', brand);
+            console.log('model:', model);
+        }
+    </script>
+</body>
+</html>

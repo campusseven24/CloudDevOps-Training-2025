@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body { font-family: Arial, Helvetica, sans-serif; padding: 20px;}
+        .section { margin: 20px 0; padding: 15px; background: #f0f0f0; border-radius: 5px;}
+        h2 {color: #333;}
+        .result { background: #e8f4f8; padding: 10px; margin: 10px 0; border-left: 4px solid #2196F3;}
+    </style>
+</head>
+<body>
+    <div class="section">
+        <h2>점진적 간소화 과정</h2>
+        <div id="evolution" class="result"></div>
+    </div>
+
+    <div class="section">
+        <h2>가격 할인 계산</h2>
+        <div id="discount" class="result"></div>
+    </div>    
+
+    <div class="section">
+        <h2>여러 연산 체이닝</h2>
+        <div id="chaining" class="result"></div>
+    </div>       
+
+    <script>
+        //원본 배열 선언
+        const numbers = [10, 20, 30, 40, 50];
+
+        //ES5 방식 - 가장 기본적인 형태
+        const step1 = numbers.map(function(n) {
+            return n / 2;
+        });
+
+        //ES6 방식 - function 키워드를 => 로 대체 
+        const step2 = numbers.map((n) => {
+            return n / 2;    
+        });
+
+        //한줄로 끝나는 경우 중괄호와 return 생략 가능
+        const step3 = numbers.map((n) => n / 2);
+
+        //매개변수가 1개일 때만 괄호 생략 가능
+        const step4 = numbers.map(n => n / 2);
+
+        document.getElementById('evolution').innerHTML= `
+            <strong>원본:</strong>[${numbers}]<br><br>
+            <strong>1단계 (일반 함수):</strong>[${step1}]<br>
+            <strong>2단계 (화살표 함수):</strong>[${step2}]<br>
+            <strong>3단계 (간소화):</strong>[${step3}]<br>
+            <strong>4단계 (최종):</strong>[${step4}]<br>
+        `;
+
+        // 20% 할인 적용
+        // 상품 가격 배열 
+        const prices = [15000, 32000, 8500, 45000, 12000];
+        const discountPrices = prices.map(price => price * 0.8);
+
+        document.getElementById('discount').innerHTML = `
+            <strong>원가:</strong> ${
+                    prices.map(p => p.toLocaleString() +'원').join(', ')
+                }<br>
+            <strong>20% 할인가:</strong> ${
+                    discountPrices.map(p => p.toLocaleString() +'원').join(', ')
+            }<br>     
+        `;
+
+        // 체이닝 : 여러 map을 연결하기 (Method Chaining)
+        const scores = [65, 72, 88, 91, 45];
+
+        const curved = scores.map(score => score + 10)
+                             .map(score => Math.min(score, 100))
+                             .map(score => score >= 70 ? '합격' : '불합격');
+
+        document.getElementById('chaining').innerHTML = `
+            <strong>원점수: </strong> [${scores}]<br>
+            <strong>처리 과정: </strong><br>
+             10점 가산 => 100점 제한 => 합격 판정<br>
+             <strong>최종 결과: </strong> [${curved.join(', ')}]<br>
+        `;                         
+    </script>
+</body>
+</html>

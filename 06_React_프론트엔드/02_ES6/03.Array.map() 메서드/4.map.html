@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //직원 정보를 담은 객체 배열 
+        let employees = [
+            {
+                id: 001,
+                name: "Tommy",
+                age: 23,
+                city: "New York",
+            },
+            {
+                id: 002,
+                name: "Mike",
+                age: 27,
+                city: "Detroit",
+            },
+            {
+                id: 003,
+                name: "Lisa",
+                age: 25,
+                city: "Chicago",
+            }            
+        ];
+
+        let names = employees.map((employee) => {
+            // 객체 배열에서 name속성만 뽑아내기 
+            return employee.name;
+        });
+
+        document.write(names);
+
+    </script>
+</body>
+</html>

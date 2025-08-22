@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 두 숫자를 받아서 사칙연산 결과 반환하는 함수
+        function calculate(a, b) {
+            const add = a + b;
+            const substract = a - b;
+            const multiply = a * b;
+            const divide = a / b;
+
+            // 여러 값을 배열로 묶어서 반환 
+            return [add, substract, multiply, divide];
+        }
+
+        const [add, substract, multiply, divide] = calculate(4, 7);
+
+        document.write("<h2>계산 결과 (4와 7)</h2>")
+        document.write("<p>덧셈 : " +add+ "</p>");
+        document.write("<p>뺄셈 : " +substract+ "</p>");
+        document.write("<p>곱셈 : " +multiply+ "</p>");
+        document.write("<p>나눗셈 : " +divide+ "</p>");
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="demo"></p>
+    <script>
+        //차량 정보를 담고 있는 객체
+        const vehicleOne = {
+            brand: 'KGM',
+            model: 'MUSSO',
+            type: 'truck',
+            year: 2025,
+            color: 'yellow',
+
+            //중첩된 객체
+            registration: {
+                city: '수원',
+                state: '경기도',
+                country: 'Korea'
+            }
+        };
+
+        myVehicle(vehicleOne);
+
+        //중첩된 객체의 구조 분해
+        function myVehicle({model, registration: {state}}) {
+            const message = 'My ' +model+ 'is registerd in ' +state+ '.';
+            document.getElementById("demo").innerHTML = message
+        }
+
+
+    </script>
+</body>
+</html>

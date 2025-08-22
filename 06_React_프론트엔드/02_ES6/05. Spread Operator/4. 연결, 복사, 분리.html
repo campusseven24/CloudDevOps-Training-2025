@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let arr1 = [1,2,3,4,5];
+
+        let arr2 = [...arr1, 6, 7, 8, 9]
+        document.write(arr2+`<br>`);
+
+        let str1 = 'staturday night';
+        let str2 = [...str1];  // 스프레드 연산자로 문자열의 각 문자를 개별 요소로 분리
+        document.write(str2+`<br>`);
+
+        let arr3 = [1,2,3];
+        let arr4 = [4,5,6];
+
+        /*
+            arr3.push(arr4)를 하면 arr4 배열 자체가 하나의 요소로 들어감: [1,2,3,[4,5,6]]
+            arr3.push(...arr4)를 사용하면 arr4의 요소들이 개별적으로 push됨: [1,2,3,4,5,6] 
+                                => arr4의 요소들이 펼쳐져서 각각 push됨
+        */
+        //arr3.push(arr4);
+        arr3.push(...arr4);
+        document.write(arr3+`<br>`);
+        document.write(arr3[3]+`<br>`);
+
+        // 새배열 생성시 중간에 스프레드 연산자 사용 
+        let arr5 = [1,2];
+        let arr6 = [0, ...arr5, 3, 4];
+        document.write(arr6+`<br>`);
+    </script>
+</body>
+</html>
