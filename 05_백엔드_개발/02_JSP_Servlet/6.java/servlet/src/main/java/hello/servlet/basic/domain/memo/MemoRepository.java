@@ -1,7 +1,5 @@
 package hello.servlet.basic.domain.memo;
 
-import hello.servlet.basic.domain.member.MemberRepository;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +8,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
-/*
-
- */
 public class MemoRepository {
     // Thread-safe한 HashMap 구현체
     private static final Map<Long, Memo> store = new ConcurrentHashMap<>();
@@ -23,7 +18,7 @@ public class MemoRepository {
         return instance;
     }
     // private 생성자
-    private MemoRepository() {
+    private MemoRepository() { 
         //샘플 메모 데이터 3개 추가
         save(Memo.builder().content("오늘 JSP 완전 마스터!").build());
         save(Memo.builder().content("이제 여름이 가니...").build());
@@ -64,20 +59,3 @@ public class MemoRepository {
         return store.size();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

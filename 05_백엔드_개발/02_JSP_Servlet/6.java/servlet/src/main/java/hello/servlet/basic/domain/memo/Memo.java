@@ -1,14 +1,18 @@
 package hello.servlet.basic.domain.memo;
 
-import lombok.*;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter @Setter
 @NoArgsConstructor      // 기본 생성자
 @AllArgsConstructor     // 전체 필드 생성자
-@Builder                // 빌더 패넌 구현 => 컴파일 시점에 빌더 클래스 자동 생성
+@Builder 
 public class Memo {
     //field
     private Long id;
@@ -28,5 +32,6 @@ public class Memo {
         if(createdAt == null) return "";
         // DateTimeFormatter를 사용한 날짜 포맷팅
         return createdAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-    }
+    }	
+
 }
