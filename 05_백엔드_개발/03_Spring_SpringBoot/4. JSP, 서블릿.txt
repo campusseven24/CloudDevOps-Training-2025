@@ -1,0 +1,63 @@
+1. JSP (JavaServer Pages)
+    1) HTML 안에 Java 코드를 추가할 수 있는 기술 
+    2) 서버에서 동적으로 HTML을 생성 
+    3) .jsp 파일 => 서블릿(.java) => 컴파일(.class) => 실행(JVM)
+    4) View 역할에만 사용하는 쪽으로 발전해감 (비즈니스 로직 X)
+
+2. JSP 주요 구성 요소 
+    1) <% java 코드 %>     <--- 스크립틀릿(scriptlet)
+        - Java 코드 실행 영역 
+    2) <%@ page %>        
+        - 페이지 설정 (인코딩, import 등)
+    3) JSP 내장 객체 (자동 제공)
+        - request, response, session, application, out, pageContext 등   
+    4) <%= 변수/메서드 %>   <--- 표현식 (Expression)
+        - 값을 html에 출력        
+
+3. JSTL (JSP Standard Tag Library)
+    1) Core 태그 (c:)
+	    <c:choose></c:choose>
+	    <c:if test=""></c:if>
+	    <c:when test=""></c:when>
+	    <c:otherwise></c:otherwise>
+	    <c:forEach></c:forEach>
+            - items : 반복할 컬렉션 (EL로 접근)
+            - var : 현재 요소를 담을 변수명 
+	    <c:set></c:set>
+	    <c:redirect></c:redirect>
+	    <c:remove var=""/>
+	    <c:out value=""></c:out>
+
+    2) Functions 태그 (fn:)
+        fn:escapeXml()
+            - 예 : <script> 
+                ${<script>} => &lt;script&gt;
+
+
+    3) Format 태그 (fmt:)
+    4) SQL 태그 (sql:)
+
+4. EL (Expression Language)
+    1) ${expression}  : 값 출력         
+    2) 내장 객체
+    3) 연산자
+        - 산술, 비교, 논리, 기타
+    4) 예
+        - ${user.name} => getName() 호출됨     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
