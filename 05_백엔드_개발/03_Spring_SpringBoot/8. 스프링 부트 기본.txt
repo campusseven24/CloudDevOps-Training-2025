@@ -40,3 +40,49 @@
         - application.yml
             - 들여쓰기로 구분되는 계층 구조 
             - key:value의 형태로 이루어짐                                         
+
+5. 프로파일 설정 파일 생성하기 (인텔리J IDE)
+    1) 기존 application.yml 백업 및 수정 
+    2) H2 프로파일 설정 파일 생성
+    3) Oracle 프로파일 설정 파일 생성
+
+6. View 만들기 
+
+7. Bootstrap CSS 
+    1) Container (컨테이너) 클래스 
+        - 전체 브라우저 화면 
+    2) 중단점  (https://getbootstrap.kr/docs/5.0/layout/breakpoints/)
+        - 화면 크기별 Container 너비 
+            - xs (<576px)           100 %
+            - sm (≥576px)           540px
+            - md (≥768px)           720px
+            - lg (≥992px)           960px
+
+    3) Margin 클래스 
+        - https://getbootstrap.kr/docs/5.0/utilities/spacing/ 
+        - my-5
+            - margin Y축 (상하) 5단계
+        - my-4
+            - margin Y축 (상하) 4단계
+        - mb-4  
+            - margin bottom (하단) 4단계 
+        - mb-2
+            - margin bottom (하단) 2단계       
+        - m = margin, p = padding, t = top, b = bottom, x = 좌우, y = 상하 
+
+    4) Grid System (row, col-md-4)         
+
+    5) Card 관련 클래스 
+        - card : 기본 카드 켄테이너 
+        - card-body : 카드 내부 패팅 영역 
+        - card-title
+        - card-subtitle
+        - card-text 
+
+    6) Button & Text 클래스 
+        - btn 
+        - btn-primary
+        - btn-sm 
+        - text-center 
+
+
