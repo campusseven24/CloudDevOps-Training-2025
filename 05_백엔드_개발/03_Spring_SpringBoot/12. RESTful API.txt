@@ -1,0 +1,39 @@
+1. RESTful 서비스 (서버)
+    1) 서버는 클라이언트가 자원을 접근할 수 있도록 
+       일괄성 있게 URL을 만듦
+       - 만든 URL을 REST API라고 함 
+       - 요청을 구분하기 HTTP Method(요청방식)을 사용함 
+       - REST API : 요청방식 + URL 
+            - 고유한 주소 (자원의 엔드포인트)
+
+
+            GET     /products
+                    /products/{id}
+
+
+            POST    /products    
+
+                                      JSON              
+            PUT     /products/{id} 
+
+
+            DELETE  /products/{id} 
+
+2. RESTful API 백엔드 (컨트롤러 서비스 모델)
+    1) 컨트롤러, 서비스 레이어, 데이터 레이어로 구성된 컨트롤러 서비스 모델 패턴 
+
+3. RESTful API 기반 프런트 엔드 접근 방식 
+    1) 모듈화, 확장성을 강조하는 최신 웹 개발 원칙 
+
+
+
+  클라이언트 측 랜더링                          
+     Frontend/UI                            BackEnd 
+                           Ajax  
+     (React, Vue.js,   <==========>  RESTful APIs       
+      JSP, Thymeleaf)     JSON,XML   Controller Lyaer <====> Service Layer 
+                                                                /|\
+                                                                 |
+                                                                \|/
+                                                              Data Layer    DB 
+                                                              (데이터 영역)
