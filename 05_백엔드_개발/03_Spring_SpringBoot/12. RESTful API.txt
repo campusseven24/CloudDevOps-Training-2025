@@ -33,7 +33,7 @@
                                                                     /|\
                                                                     |
                                                                     \|/
-                                                                  Data Layer    DB 
+                                                                  Data Layer <===> DB 
                                                                   (데이터 영역)
 
 4. @RestController 
@@ -100,7 +100,16 @@
     - http://localhost:8081/api/books/4 
 
 10. 데이터 삭제하기 
-  1) DeleteMapping     
+  1) DeleteMapping   
+    - http://localhost:8081/api/books/1   
+
+11. (책) 이미지 업로드 (다중 이미지)
+  1) BookImage      
+  2) upload 디렉토리 만들기 
+  3) upload 디렉토리 경로 설정하기 (application.yml)
+
+12. (책) 이미지 뷰어 
+  
 
 
 
