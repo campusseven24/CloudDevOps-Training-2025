@@ -17,6 +17,10 @@
             - 간단한 표현
                 - 변수 표현식 : ${...}
                 - URL 표현식 : @{...}
+                    - 예) th:action="@{/customer/register}"
+            - 바인딩
+                - th:object="${customer}"   -- 객체바인딩
+                - th:field="*{username}"  -- 필드바인딩        
 
 
     2) 텍스트 처리 
