@@ -231,3 +231,26 @@ Hibernate: alter table Review add constraint FKl3n8g20ecmr15g83y0g3evv2q foreign
 
 Hibernate: insert into Customer (age,customerName,occupation,password,rating,reserves,username) values (?,?,?,?,?,?,?)
 ibernate: insert into Customer (age,customerName,occupation,password,rating,reserves,username) values (?,?,?,?,?,?,?)
+
+Hibernate: alter table BookImage drop foreign key FKj7yq0ebj03hom9mm9qom3p0kl
+Hibernate: alter table Cart drop foreign key FKm5ku5ea0qccwca07ju2idkl8e
+Hibernate: alter table Cart drop foreign key FK1hg5y4dttmujehwmnu533xkek
+Hibernate: alter table Review drop foreign key FK8d76td2o7d2d8foei85l93b9w
+Hibernate: alter table Review drop foreign key FK8t2d8qvkmhd4hsfv8qy4ednlo
+Hibernate: drop table if exists Book
+Hibernate: drop table if exists BookImage
+Hibernate: drop table if exists Cart
+Hibernate: drop table if exists customer
+Hibernate: drop table if exists Review
+Hibernate: create table Book (page integer not null, price integer not null, id bigint not null auto_increment, title varchar(45) not null, author varchar(255), primary key (id)) engine=InnoDB
+Hibernate: create table BookImage (type integer not null, book_id bigint not null, id bigint not null auto_increment, path varchar(255), primary key (id)) engine=InnoDB
+Hibernate: create table Cart (quantity integer not null, book_id bigint not null, cartDate datetime(6), customer_id bigint not null, id bigint not null auto_increment, primary key (id)) engine=InnoDB
+Hibernate: create table customer (age integer not null, deleted boolean default false, reserves int default 0, deletedAt datetime(6), id bigint not null auto_increment, customerName varchar(255), occupation varchar(255), password varchar(255), rating varchar(255), username varchar(255) not null, primary key (id)) engine=InnoDB
+Hibernate: create table Review (cost integer not null, book_id bigint not null, createdAt datetime(6), customer_id bigint not null, id bigint not null auto_increment, content varchar(255), primary key (id)) engine=InnoDB
+Hibernate: alter table Book add constraint UKodppys65lq7q1xbx8o6p6fgxj unique (title)
+Hibernate: alter table customer add constraint UK_CUSTOMER_USERNAME unique (username)
+Hibernate: alter table BookImage add constraint FKj7yq0ebj03hom9mm9qom3p0kl foreign key (book_id) references Book (id)
+Hibernate: alter table Cart add constraint FKm5ku5ea0qccwca07ju2idkl8e foreign key (book_id) references Book (id)
+Hibernate: alter table Cart add constraint FK1hg5y4dttmujehwmnu533xkek foreign key (customer_id) references customer (id)
+Hibernate: alter table Review add constraint FK8d76td2o7d2d8foei85l93b9w foreign key (book_id) references Book (id)
+Hibernate: alter table Review add constraint FK8t2d8qvkmhd4hsfv8qy4ednlo foreign key (customer_id) references customer (id)
