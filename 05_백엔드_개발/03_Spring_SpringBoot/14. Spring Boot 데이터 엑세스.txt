@@ -254,3 +254,42 @@ Hibernate: alter table Cart add constraint FKm5ku5ea0qccwca07ju2idkl8e foreign k
 Hibernate: alter table Cart add constraint FK1hg5y4dttmujehwmnu533xkek foreign key (customer_id) references customer (id)
 Hibernate: alter table Review add constraint FK8d76td2o7d2d8foei85l93b9w foreign key (book_id) references Book (id)
 Hibernate: alter table Review add constraint FK8t2d8qvkmhd4hsfv8qy4ednlo foreign key (customer_id) references customer (id)
+
+8. JPA 관계 매핑 규칙 
+    1) @OneToMany (1:N)
+        - 부모 엔티티에 선언 
+        - mappedBy="자식필드명"
+        - List<자식엔티티> 타입 
+
+    2) @ManyToOne (N:1)        
+        - 자식 엔티티에 선언 
+        - @JoinColumn 필수  
+        - FK 컬럼명 지정   
+
+    3) CascadeType.ALL
+        - 부모 변경시 자식도 변경 
+        - 영속성 
+
+    4) 양방향 관계 
+        - 연관관계 주인 : @ManyToOne 
+        - 역방향 : @OneToMany  
+        - mappedBy로 연결                            
+
+9. JPA 사용 방법 
+    1) JpaRepository에서 제공되는 CRUD 메서드를 사용하는 방법 
+    2) 쿼리 메서드를 사용하는 방법 
+        - 메소드 이름을 선언하여 저장소 인터페이스에서 
+          쿼리 메소드를 정의할 수 있음.
+        - 메서드 이름은 Spring Data JPA에 의해 구문 분석되어 
+          적절한 SQL 쿼리를 생성함 
+        - 예)
+            firstName 필드가 있는 User 엔티티가 있는 경우 
+            => findByFirstName(String firstName)
+
+        - 테스트 
+            - Repository 인터페이스 작성 
+            
+
+
+
+    3) JPQL 쿼리를 사용하는 방법        
