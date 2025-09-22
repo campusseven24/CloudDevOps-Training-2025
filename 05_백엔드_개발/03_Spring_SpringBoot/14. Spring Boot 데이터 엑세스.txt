@@ -255,7 +255,7 @@ Hibernate: alter table Cart add constraint FK1hg5y4dttmujehwmnu533xkek foreign k
 Hibernate: alter table Review add constraint FK8d76td2o7d2d8foei85l93b9w foreign key (book_id) references Book (id)
 Hibernate: alter table Review add constraint FK8t2d8qvkmhd4hsfv8qy4ednlo foreign key (customer_id) references customer (id)
 
-8. JPA 관계 매핑 규칙 
+9. JPA 관계 매핑 규칙 
     1) @OneToMany (1:N)
         - 부모 엔티티에 선언 
         - mappedBy="자식필드명"
@@ -275,7 +275,7 @@ Hibernate: alter table Review add constraint FK8t2d8qvkmhd4hsfv8qy4ednlo foreign
         - 역방향 : @OneToMany  
         - mappedBy로 연결                            
 
-9. JPA 사용 방법 
+10. JPA 사용 방법 
     1) JpaRepository에서 제공되는 CRUD 메서드를 사용하는 방법 
     2) 쿼리 메서드를 사용하는 방법 
         - 메소드 이름을 선언하여 저장소 인터페이스에서 
@@ -285,11 +285,48 @@ Hibernate: alter table Review add constraint FK8t2d8qvkmhd4hsfv8qy4ednlo foreign
         - 예)
             firstName 필드가 있는 User 엔티티가 있는 경우 
             => findByFirstName(String firstName)
-
         - 테스트 
             - Repository 인터페이스 작성 
-            
+    3) JPQL 쿼리를 사용하는 방법   
+
+11. 쿼리 메서드 (Query Method)
+    1) 자주 사용하는 키워드 
+        - 조회 : findBy, getBy, queryBy, searchBy
+        - 존재 확인: existsBy
+        - 카운트 : countBy
+        - 삭제 : deleteBy, removeBy 
+        - 조건 : And, Or 
+        - 비교 : Between, LessThan, GreateThan, After, Before
+        - Like : Like, NotLike, StartingWith, EndingWith, Containing
+        - 정렬 : OrderBy...Asc, OrderBy...Desc 
+        - Null 체크 : IsNull, IsNotNull
+        - Boolean : True, False 
+        - 컬렉션 : In, NotIn 
+        - 제한 : First, Top, Distinct          
+
+12. JPQL 쿼리를 사용하는 방법(@Query 사용, Entity 기준)      
+    1) JPQL (Java Persistence Query Language)
+        - 엔터티 클래스와 해당 필드를 사용하여 
+          사용자 정의 쿼리를 정의할 수 있음  
+
+    2) SQL vs JPQL 
+        - SQL (데이터베이스 테이블 기준)
+            -예) SELECT * FROM customer c 
+                 WHERE c.customerName = 'Lee'
+                 AND c.age > 20;
+        - JPQL (엔티티 객체 기준)
+            -예) SELECT c FROM customer c 
+                 WHERE c.customerName = :name
+                 AND c.age > :age  
+
+    3) 단계별 적용 
+        - 
+            @Query(
+                "
+                    SELECT c FROM customer c
+                    WHERE c.rating = :rating
+                    And c.deleted = false"
+            )
+            List<Customer> findActiveGoldCustomers(@Param"rating");                      
 
 
-
-    3) JPQL 쿼리를 사용하는 방법        
