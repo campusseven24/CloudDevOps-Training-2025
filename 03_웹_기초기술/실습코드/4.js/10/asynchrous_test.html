@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 1. Promise 생성 (커피 주문)
+        const coffeeOrder = new Promise((resolve, reject) => {
+            // 2. 커피 만들기 (비동기 작업)
+            setTimeout(() => {
+                const hasIngredient = false;     // 재료가 충분한지 여부 
+                if (hasIngredient) {
+                    resolve('아메리카노');          // 성공
+                } else {
+                    reject('재료 소진');            // 실패
+                }
+            }, 3000);
+        })
+
+        // 3. Promise 실행 및 결과 처리
+        coffeeOrder.then((coffee) => {
+            console.log('주문 성공: ', coffee);
+            return coffee;      // 다음 then으로 값을 전달할 수 있음
+        })
+        .then((coffee) => {
+            console.log('맛있게 ' + coffee + ' 마시기');
+        })
+        .catch((error) => {
+            console.log('주문 실패: ', error);
+        })
+        .finally(() => {
+            console.log('주문 과정이 완료되었습니다.')    
+        });
+    </script>
+</body>
+</html>

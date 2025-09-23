@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function fetchInfo() {
+            const resultDiv = document.getElementById('info-result');
+            resultDiv.innerHTML = "Loading...";
+
+            fetch('/api/info')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('JSON 데이터: ', data);
+                    resultDiv.innerHTML = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    resultDiv.innerHTML = `Error: `;
+                })
+        }
+
+        function fetchMessage() {
+            const resultDiv = document.getElementById('messages-result');
+
+            fetch("/api/status")
+                .then(response => response.json())
+
+                .then(status => {
+                    const date = new Date(status.timestamp);
+
+                    resultDiv.innerHTML = `
+                        <div style="padding: 20px; background: #e6fffa; border-radius: 10px;">
+                            <h3>서버 상태</h3>
+                            <p>상태 ${status.server}</p>
+                            <p>메시지 개수: ${status.messageCount}</p>
+                            <p>확인 시간: ${date.toLocaleString()}</p>
+                        </div>                                    
+                    `;
+                })
+        }
+
+        function fetchMessages() {
+            const resultDiv = document.getElementById('messages-result');
+
+            resultDiv.innerHTML = '<div class=""></div>메시지 로딩 중...'
+
+            fetch('/api/messages') 
+                .then(response => response.json())  //배열도 json()으로 파싱
+                .then(messages => { // [{...}, {...}, {...}]
+                    console.log('메시지 목록: ', messages);
+                    
+                    if(messages.length == 0) {
+                        resultDiv.innerHTML = '메시지가 없습니다.';
+                        return;     //함수 종료
+                    }
+
+                    let html = '<div style="display: grid; gap: 10px;">';
+                    // forEach : 배열의 각 요소에 대해 함수 실행 
+                    messages.forEach(msg => {
+                        html += `
+                            <div style="padding: 15px; background: #fff;
+                                border-left: 3px solid #667eea; 
+                                border-radius: 5px;">
+                                <strong>${msg.title}</strong><br>
+                                <small style="color: #666;">
+                                    작성자: ${msg.author} | ID: ${msg.id}
+                                </small><br>
+                                <p style="margin-top: 10px;">${msg.content}</p> 
+                            </div>       
+                        `;
+                    })
+                    html += '</div>';    
+
+                    // 생성된 HTML을 DOM에 삽입
+                    resultDiv.innerHTML = html;
+                })
+                .catch(error => {
+                    resultDiv.innerHTML = `❌ 에러: ${error.message}`;
+                })
+        }
+
+        function fetchMessageById(Id) {
+            
+        }
+    </script>
+</body>
+</html>
