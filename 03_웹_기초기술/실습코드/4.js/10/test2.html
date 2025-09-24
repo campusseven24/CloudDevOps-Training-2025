@@ -12,6 +12,8 @@
     <button onclick="orderCoffeeAsync()">커피 주문하기</button>
     <button onclick="orderMultipleCoffeesAsync()">여러 커피 동시 주문하기</button>
     <button onclick="runCafeSystem()">카페 시스템 주문 테스트</button>
+    <button onclick="orderWithPromise()">Promise 방식</button>
+    <button onclick="orderWithAsync()">Async/Await 방식</button>
     <div id="result"></div>
 <script>
     // 1. 커피 제조 함수 -- Promise를 반환하는 함수
@@ -246,6 +248,50 @@
         } catch(error) {
             // 시스템 에러 처리
             console.error('시스템 오류: ', error);
+        }
+    }
+
+    // Promise 체이닝 방식
+    function orderWithPromise() {
+        makeCoffee('아메리카노')
+            .then(coffee1 => {
+                console.log('첫 번째:', coffee1);
+                return makeCoffee('까페라떼');
+            })
+            .then(coffee2 => {
+                console.log('두 번째:', coffee2);
+                return makeCoffee('카푸치노');                
+            })
+            .then(coffee3 => {
+                console.log('세 번째:', coffee3);
+            })
+            .catch(error => {
+                console.error('에러:', error);
+            })
+            .finally(() => {
+                console.log('완료');
+            })
+    }
+
+    // Async / Await 방식
+    async function orderWithAsync() {
+        try {
+            // 동기 코드처럼 읽히지만 비동기로 동작
+           const coffee1 = await makeCoffee('아메리카노')
+            // Promise가 resolve될때까지 대기
+            // resolve된 값을 변수에 할당
+            console.log(coffee1);
+
+           const coffee2 = await makeCoffee('까페라테');
+           console.log(coffee2);
+
+           const coffee3 = await makeCoffee('카푸치노');
+           console.log(coffee3);
+
+        } catch (error) {
+            console.error('에러: ', error);
+        } finally {
+            console.log('완료');
         }
     }
 
