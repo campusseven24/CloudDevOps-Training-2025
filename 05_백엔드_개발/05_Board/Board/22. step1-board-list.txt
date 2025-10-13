@@ -54,4 +54,88 @@
         - 최신순 정렬 (createdAt DESC)
         - Page<Board> => Page<BoardListDTO> 변환 
 
-    8) BoardController        
+    8) BoardController    
+        - 1-based 페이징 시스템 구현 
+            - 목표
+                - 사용자 친화적 URL : page=1부터 시작 (직관적)    
+                - 내부 호환성 유지 : Spring Data JPA는 0-based 사용 
+                - 일관된 페이징 UI : 네이버, 다음 스타일의 고정 그룹 방식 
+                    - 페이지를 10개씩 그룹으로 묶어서 표시 
+                    - 사용자 혼란 최소화 
+
+            - 그룹 1 (URL page=1~10)  
+                page=1: [1] 2 3 4 5 6 7 8 9 10                                  
+                page=5: 1 2 3 4 [5] 6 7 8 9 10
+                page=10: 1 2 3 4 5 6 7 8 9 [10]
+
+            - 그룹 2 (URL page=11~20)  
+                page=11: [11] 12 13 14 15 16 17 18 19 20                                  
+                page=16: 11 12 13 14 15 [16] 17 18 19 20
+                page=20: 11 12 13 14 15 16 17 18 19 [20]     
+
+            - 그룹 내에서 고정         
+
+            - 페이지 그룹 계산 
+                - 현재 페이지가 속한 그룹 번호 계산 (1-based => 0-based 변환)
+                - 예시 
+                    - page=1  => currentGroup = (1-1) / 10 = 0 (1번째 그룹)
+                    - page=5  => currentGroup = (5-1) / 10 = 0 (1번째 그룹)   
+                    - page=11 => currentGroup = (11-1) / 10 = 1 (2번째 그룹)  
+                    - page=16 => currentGroup = (16-1) / 10 = 1 (2번째 그룹) 
+                    - page=21 => currentGroup = (21-1) / 10 = 2 (3번째 그룹)
+
+            - 페이지 번호 범위 계산
+                - 그룹의 시작 페이지 번호 계산 (1-based)
+                - 예시 
+                    - 그룹 0(1번째): 0 * 10 + 1 = 1 => 시작 페이지 1
+                    - 그룹 1(2번째): 1 * 10 + 1 = 11 => 시작 페이지 11                    
+                    - 그룹 2(3번째): 2 * 10 + 1 = 21 => 시작 페이지 21 
+
+                - 그룹의 종료 페이지 번호 계산 (1-based)
+                - 예시 (총 25페이지)
+                    - 그룹 0: min(1+10-1, 25) = min(10, 25) = 10 => 1~10 페이지 
+                    - 그룹 1: min(11+10-1, 25) = min(20, 25) = 20 => 11~20 페이지                          
+                    - 그룹 2: min(21+10-1, 25) = min(30, 25) = 25 => 21~25 페이지 
+                - 공식 : Math.min(startPage + pageGroupSize - 1, totalPages)
+                    - startPage + pageGroupSize - 1 : 그룹의 이론적 끝 페이지 
+                    - totalPages: 실제 전체 페이지 수 
+                    - 둘 중 작은 값 선택 (마지막 그룹은 10개 미만일 수 있음)
+
+            - 그룹 이동 버튼 표시 계산 (<<   >>)  
+                - 이전 그룹 버튼 표시 여부 
+                    - 조건 : 첫 번째 그룹이 아닐 때 (startPage > 1)       
+                    - 예시 : 2번째 그룹 (11~20)에 있을 때 [이전 그룹] 버튼 표시 
+                             클릭 시 1번째 그룹(1~10)으로 이동       
+
+                - 다음 그룹 버튼 표시 여부
+                    - 조건 : 마지막 그룹이 아닐 때 (endPage < totalPages)
+                    - 예시 : 1번째 그룹(1~10)에 있을 때 [다음 그룹] 버튼 표시 
+                             클릭 시 2번째 그룹(11~20)으로 이동       
+
+        - Model에 페이징 정보 전달    
+
+    9) SecurityConfig 수정
+        - /boards/** URL을 누구나 접근 가능하도록 설정 
+        - 로그인 없이도 게시글 목록/상세 조회 가능 
+
+3. Frontend 구현
+    1) 프래그먼트 레이아웃 적용 
+        - 공통 레이아웃 구조를 사용 
+            - 전체 레이아웃 : common/layout.html
+            - 네비게이션 바 : common/header.html 
+            - 푸터 : common/footer.html         
+    2) header.html 수정 
+        - 게시판 메뉴 추가 
+    3) board/list.html 
+        - Thymleaf 레이아웃 프래그먼트 방식으로 공통 레이아웃 적용 
+
+            - xmlns:th  - Thymleaf 네임스페이스 (Thymleaf 문법 사용 선언)
+            - xmlns:sec - Spring Security 네임스페이스 (sec:authorize 등 보안 관련 기능 사용)       
+
+            - th:replace 속성 
+                - <html> 태그 전체를 common/layout.html의 layout 프래그먼트 교체 
+                - layout 프래그먼트에 4가지 파라미터를 전달 
+                    - ~{::title} - 현재 페이지의 <title> 태그 내용 
+                    - ~{::content} - 현재 페이지의 th:fragment="content" 블록 
+                    - ~{::css} - 현재 페이지의 th:fragment="css" 블록
+                    - ~{::scripts} - 현재 페이지의 th:fragment="scripts" 블록 
