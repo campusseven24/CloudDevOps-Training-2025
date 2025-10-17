@@ -51,3 +51,21 @@
     5) Phase 5: DTO 
         - BoardCreateDTO 추가         
 
+4. 게시글 진행 정리
+    1) 사용자가 form.html에서 게시글 작성
+
+    2) JavaScript로 클라이언트 검증 (파일 크기, 확장자)
+
+    3) POST /boards ==> BoardController.create()
+
+    4) @Valid로 서버 검증 (제목, 내용, 카테고리)
+
+    5) BoardService.createBoard()
+        - 게시글 생성
+        - 파일이 있으면 FileStorageService로 저장
+        - BoardFile 엔티티 생성 및 연결 
+
+    6) DB 저장 (cascade로 게시글 + 파일 함께 저장)        
+
+    7) 성공 시 : detail 페이지로 리다이렉트 + 성공 메시지 
+       실패 시 : form으로 돌아가 + 에러 메시지 
