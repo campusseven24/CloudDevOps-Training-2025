@@ -28,3 +28,31 @@
         - 댓글 수정 시 사용
         - 클라이언트 -> 서버
         - 유효성 검증 포함                
+
+4. 데이터 흐름 
+
+             Client  (JavaScript)
+                     |
+                     |  JSON {"content" : "댓글 내용"}
+                    \|/
+                 Controller (@RequestBody CommentCreateDTO) 
+                     |
+                     |  @Valid 검증
+                    \|/  
+                 Service   (CommentCreateDTO -> Comment Entity)  
+                     |
+                     |
+                    \|/
+                 Repository (Comment Entity 저장)  
+                     |
+                     |
+                    \|/
+                  Service  (Comment Entity -> CommentDTO)  
+                     |
+                     |
+                    \|/
+                  Controller (CommentDTO 반환)
+                     |
+                     |  JSON {"id" : 1, "content": "댓글 내용", ....}
+                    \|/                    
+                   Client (JavaScript)
