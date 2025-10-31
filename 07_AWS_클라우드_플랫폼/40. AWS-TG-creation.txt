@@ -9,3 +9,82 @@
         - Application Load Balancer, Parameter Store, CloudWatch Logs 
         - Github Secrets
     4) Phase 4: 배포 자동화 
+
+
+* CI/CD 파이프라인 아키텍처   
+
+    ----------------------------------------------------------------
+             Github Repository
+                - sr/main/java
+                - sr/main/resources
+                - Dockerfile
+                - task-definition.json
+                .github/workflows/deploy-to-ecs.yml
+            ----------------------------------------    
+                            |
+                            | git push 
+                            |
+                            ▼
+            ----------------------------------------
+               Github Actions workflow
+            1) Checkout code
+            2) Configure AWS credentials
+            3) Login to ECR 
+            4) Build & Push Docker image  
+            5) Update Task Definition 
+            6) Deploy to ECS 
+    -----------------------------------------------------------------
+                           |
+                           | AWS API Calls
+                           |
+                           ▼
+    -----------------------------------------------------------------
+                       AWS Cloud               
+
+        ------------           ---------------------------------
+         Amazon ECR                     Amazon ECS 
+           Docker     <--------           Task 
+           Image         Pull             Definition
+                                             |
+                                             |
+                                             |
+                                             ▼
+                                          ECS Service                
+                                             |
+                                             |
+                                             |
+                                             ▼
+                                           Fargate
+                                           Task 
+                                           (Running)     
+                                             |   
+                                             |
+            ---------------------------------|-----------
+              Application Load Balancer     
+            Listener
+            HTTP:80   --------▶ Target
+                                 Group
+                                 (Blue) 
+            -------------------|--------------------------
+                               |
+                               |
+            ----------------------------------------------
+                             VPC                    
+
+                ------------------         ----------------
+                 Public Subnet              Public Subnet
+                 ap-northeast-2a             ap-northeast-2c
+                    
+                    ECS Task 
+                    (Container)
+                     Port : 8081
+                -------------------   
+                        |
+                        | JDBC
+                        |
+                        ▼ 
+                --------------------  
+                    Amazon RDS MySQL
+                     Port : 3306
+                     Database 
+            ---------------------------------------------
