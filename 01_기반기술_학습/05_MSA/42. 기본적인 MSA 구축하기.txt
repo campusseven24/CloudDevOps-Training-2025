@@ -1,0 +1,55 @@
+* 요구사항 
+    1) 구현할 기능 
+        - 회원가입 API
+        - Request 
+            {
+                "email": "test@gmail.com",
+                "name" : "이순신",
+                "password" : "abc"
+            }
+        - Response
+            - (204 No Content로 응답하기)
+
+    2) 게시글 작성 API 
+        - Request
+            {
+                "title" : "제목",
+                "content" : "내용",
+                "userId" : 1
+            }            
+        - Response
+            - (204 No Content로 응답하기)    
+
+    3) DB 서버를 간편하게 실행하기 위해서 Docker를 사용할 것임 
+
+    4) DB 설계
+        - 모놀리식 아키텍처 
+            - user_id를 참조한 채로 DB를 설계함 
+
+            사용자 (users)                  게시글 (boards)
+           ----------------               ----------------
+             user_id (PK)  ---------        board_id (PK)
+             email                  |       title
+             name                   |       content
+             password               |-----▶ user_id (FK)   
+
+        - 마이크로서비스 아키텍처 
+            - DB가 독립적으로 분리되어 있기 때문에 user_id를 참조할수 없음
+            - 하지만 특정 게시글이 어떤 사용자의 게시글인지 파악하기 위해 
+              user_id에 대한 정보는 있어야 함.
+
+            사용자 (users)                  게시글 (boards)
+           ----------------               ----------------
+             user_id (PK)  ---------        board_id (PK)
+             email                  |       title
+             name                   X       content
+             password               |-----▶ user_id    
+
+* 각 MicroService에 해당하는 DB 서버 실행하기 
+    1. Docker로 MySQL 서버 2대 실행
+        - docker run -e MYSQL_ROOT_PASSWORD=password -p 3307:3306 -d mysql                        
+        - docker run -e MYSQL_ROOT_PASSWORD=password -p 3308:3306 -d mysql
+
+* User MicroService 만들기 
+
+* Board MicroService 만들기 
