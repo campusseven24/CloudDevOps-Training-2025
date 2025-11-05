@@ -53,3 +53,17 @@
 * User MicroService 만들기 
 
 * Board MicroService 만들기 
+    1. Docker MySQL 데이터 영속성 
+        - 이 프로젝트는 Docker 컨테이너로 실행되는 MySQL을 사용함 
+        - Docker Volume 메커니즘 
+            - MySQL 공식 이미지는 /var/lib/mysql을 VOLUME으로 선언함 
+            - Volume을 명시하지 않아도 익명 볼륨이 자동 생성 
+            - 컨네이너를 삭제해도 불륨은 남아있음
+            - 컨테이너 재시작 시 같은 볼륨을 사용하면 데이터 유지 
+    2. 컨테이너 생명주기와 데이터 
+        - 명령어                  컨테이너 상태         데이터 보존 여부
+         ------------------------------------------------------------ 
+        docker start <컨테이너>    다시 실행 (Up)           그대로 사용 
+        docker stop  <컨테이너>    중지됨 (Exited)          유지됨  
+        docker rm <컨테이너>       삭제됨                  볼륨은 유지 
+        docker rm -v <컨테이너>    삭제 + Volume 삭제       완전 삭제
