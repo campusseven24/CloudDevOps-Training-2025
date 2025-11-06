@@ -1,0 +1,5 @@
+* 사용자 조회 API 만들기 
+    1. Response DTO 만들기 
+        1) UserResponseDto
+    2. service 로직 작성 
+    3. Controller 로직 작성         
