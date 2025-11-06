@@ -3,3 +3,13 @@
         1) UserResponseDto
     2. service 로직 작성 
     3. Controller 로직 작성         
+
+* 특정 게시글 조회 API 만들기 
+    1. BoardResponseDto 만들기 
+        - UserDto 만들기 
+            - userId, name
+
+    2. user-service의 API와 통신할 코드 만들기 
+        - RestClient라는 라이브러리 사용 
+        - WebClient
+        - RestTemplate        
