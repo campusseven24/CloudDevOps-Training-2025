@@ -13,3 +13,84 @@
         - RestClient라는 라이브러리 사용 
         - WebClient
         - RestTemplate        
+
+* 시퀀스 다이어그램 
+    [Client]
+        |
+        | GET /boards/1
+        |
+        ▼    
+    [BoardController]
+        |
+        | BoardService.getBoard(1)
+        | 
+        ▼        
+    [BoardService.getBoard()]
+        |
+        |--> [1] boardRepository.findById(1)
+        |           |
+        |           ▼
+        |       [board-service DB (MySQL 3308)]
+        |           |
+        |           ▼
+        |        SELECT * FROM boards WHERE board_id = 1
+        |           |
+        |           ▼
+        |        Board {
+        |           boardId: 1,
+        |           title: "MSA 구축",
+        |           content: "Client....",
+        |           userId: 10                                     
+        |        }    
+        |--> [2] userClient.fetchUser(10)
+        |           |
+        |           ▼
+        |        [HTTP 통신]
+        |           |
+        |           ▼
+        |        GET http://localhost:8080/users/10
+        |           |
+        |           ▼
+        |        [user-service API]
+        |           |
+        |           ▼
+        |        [UserController]    
+        |           |
+        |           ▼
+        |        [UserService]       
+        |           |
+        |           ▼
+        |        [user-service DB (MySQL 3307)]   
+        |           |
+        |           ▼
+        |        SELECT * FROM users WHERE user_id = 10
+        |           |
+        |           ▼
+        |        User {
+        |           userId: 10,
+        |           name: "이순신",
+        |           email: "Lee@gmail.com"
+        |        }   
+        |           |
+        |           ▼
+        |        UserResponseDto {
+        |           userId: 10,
+        |           name: "이순신",
+        |           email: "Lee@gmail.com"
+        |       }
+        |           |
+        |           ▼
+        |       [HTTP 응답]
+        |           |
+        |           ▼
+        |        UserResponseDto 반환 
+        |
+        |--> [3] UserDto 생성 (필드 선택)
+        |       UserDto {
+        |          userId: 10,
+        |          name: "이순신"      
+        |       }
+        |
+        |--> [4] BoardResponseDto 생성 (데이터 통합)
+        |
+
