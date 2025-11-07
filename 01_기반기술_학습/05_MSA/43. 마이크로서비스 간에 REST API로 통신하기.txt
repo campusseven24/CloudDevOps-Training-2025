@@ -17,23 +17,23 @@
 * 시퀀스 다이어그램 
     [Client]
         |
-        | GET /boards/1
+        | GET /boards/10
         |
         ▼    
     [BoardController]
         |
-        | BoardService.getBoard(1)
+        | BoardService.getBoard(10)
         | 
         ▼        
-    [BoardService.getBoard()]
+    [BoardService.getBoard(10)]
         |
-        |--> [1] boardRepository.findById(1)
+        |--> [1] boardRepository.findById(10)
         |           |
         |           ▼
         |       [board-service DB (MySQL 3308)]
         |           |
         |           ▼
-        |        SELECT * FROM boards WHERE board_id = 1
+        |        SELECT * FROM boards WHERE board_id = 10
         |           |
         |           ▼
         |        Board {
@@ -92,5 +92,14 @@
         |       }
         |
         |--> [4] BoardResponseDto 생성 (데이터 통합)
-        |
+        |       BoardResponseDto {
+        |           boardId: 10,
+        |           title: "MSA 구축",
+        |           content: "Client....",   
+        |           user : {
+        |               userId: 10,
+        |               name: "이순신"         |               
+        |           }          
+        |       }
+        |--> [5] return BoardResponseDto
 
