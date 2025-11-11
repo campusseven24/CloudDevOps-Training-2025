@@ -25,3 +25,15 @@
                 - [{"userId":1,...}, {"userId":2,...}] => List<UserResponseDto>
                 - users.get(0).getName() 가능 
                 - users.get(0).getUserID() 가능
+
+    3. 핵심 구현 포인트 
+        1) API Composition 패턴 
+            - Board Service의 역할
+                - 게시글 데이터 (Board DB)
+                - 사용자 데이터 (User Service via HTTP)
+                - 두 데이터를 조합하여 통합 응답 생성 
+
+            - UserClient의 역할
+                - HTTP 통신 로직 캡슐화
+                - RestClient로 User Service 호출
+                - ParameterizedTypeReference로 타입 안전성 보장                     
