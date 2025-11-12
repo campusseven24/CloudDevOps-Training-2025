@@ -1,0 +1,64 @@
+* 회원 가입 시 포인트 적립하기 (요구사항)
+    MSA pattern : Service-to-Service Communication via HTTP 
+
+
+Client          Client
+                (사용자)
+                   ▲
+                   |
+                   | POST /users/signup
+                   | { name, email, password }
+                   ▼
+Controller      UserController                                                  
+                  user-service 8080                             
+                  POST /users/signup
+                   |
+                   | signUp(dto) 
+                   |
+                   ▼                                                                        PointController
+Service         UserService          적립요청       PointClient        HTTP POST              point-service 8082
+                  @Transactional ◀--------------▶   RestClient  ◀--------------▶           POST /points/add      
+                    signUp()                         HTTP 통신       localhost:8082                   |
+                                                                      /points/add                     | addPoints(dto)
+                                                                                                      |
+                                                                                                      ▼ 
+                                                                                             PointService          
+                                                                                              @Transactional
+                                                                                                addPoints()
+                                                                                                      |
+                                                                                                      | save(point)
+                                                                                                      | 
+                                                                                                      ▼
+                                                                                             PointRepository         
+                                                                                              JpaRepository
+                                                                                               save(point)
+                                                                                                      |
+                                                                                                      | INSERT INTO points
+                                                                                                      | 
+                                                                                                      ▼
+                                                                                               point-sevice DB 
+                                                                                                 MySQL : 3309
+                                                                                                          points 테이블        
+                    |
+                    |
+                    |
+                    ▼
+Repository     UserRepository  
+                JpaRepository
+                 save(user)
+                    |
+                    | INSERT INTO users
+                    |
+                    ▼
+               user-service DB 
+                  MySQL : 3307
+                  users 테이블 
+
+
+
+* Point Microservice가 사용할 DB 실행하기 
+    1. MySQL 서버 실행하기 
+      - docker run -e MYSQL_ROOT_PASSWORD=password -p 3309:3306 -d mysql                   
+    2. 실행 확인하기 
+      - docker ps  
+
