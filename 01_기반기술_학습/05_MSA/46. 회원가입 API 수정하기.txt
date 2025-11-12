@@ -62,3 +62,29 @@ Repository     UserRepository
     2. 실행 확인하기 
       - docker ps  
 
+
+* MSA 데이터베이스 설계 
+
+        user-db                     board-id                    point-db 
+      ---------------              ---------------              -------------   
+     Port : 3307                    Port : 3308                  Port : 3309   
+     Service : user-service         Service : board-service      Service : point-service
+
+         users                          boards                      points 
+     PK  userId                     PK  boardId                  PK pointId
+         email                          title                    FK userId     
+         name                           content                     amount
+         password                   FK  userId
+
+    1. 핵심 원칙 
+        1) 각 마이크로서비스는 자신의 데이터를 완전히 소유하고,
+           다른 서비스의 데이터는 API를 통해서만 접근함 
+        2) 논리적 FK vs 물리적 FK 
+            - 물리적 FK (Monolithic)
+                - DB 레벨에서 참조 무결성 보장 
+                - 서비스간 강한 결합 
+                - 독립 배포 불가 
+            - 논리적 FK (MSA)
+                - 서비스 독립성, 느슨한 결합 
+                - 애플리케이션에서 참조 무결성 관리 필요
+                    - userId 필드로 논리적 관계 표현             
