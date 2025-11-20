@@ -1,0 +1,37 @@
+1. RDS
+    1) Relational Database Service
+    2) 관계형 데이터베이스 서비스 
+    3) AWS RDS라는 데이터베이스를 빌려서 사용하는 것임 
+    4) 현업에서는 EC2와 RDS를 분리해서 인프라를 구성하는 경우가 대부분임 
+        - 비용이 부담된다면 하나의 EC2에 벡엔드 서버와 MySQL을 직접 설치해서
+          사용해도 무방함. 
+
+2. RDS 생성하기 
+
+3. 보안그룹 설정하기 
+
+4. 파라미터 그룹 추가하기
+    1) 속성값 설정하기 
+        - character_xxx_xxx 6개
+            - utf8mb4
+        - collation_connection, collation_server
+            - utf8mb4_unicode_ci    
+        - time_zone
+            - Asia/Seoul
+
+5. RDS 접속 
+
+6. Spring Boot 서버를 EC2에 배포 
+    1) 보안그룹 설정
+        - 같은 보안그룹 설정되어 있어야 함 (EC2, RDS)
+            - InBound
+                - 22, 8080, 3306 포트 설정 
+    2) Spring Boot 서버에 RDS 연결하기
+        - application.yml
+            datasource:
+                #url: jdbc:mysql://localhost:3306/ec2_testdb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Seoul&characterEncoding=UTF-8  # RDS 인스턴스 엔드포인트
+                url: jdbc:mysql://ec2-test-db.cpmu26qiut6a.ap-northeast-2.rds.amazonaws.com:3306/ec2testdb
+                username: admin   # RDS 마스터 사용자 이름
+                password: 12345678 # RDS 마스터 암호
+                driver-class-name: com.mysql.cj.jdbc.Driver            
+
